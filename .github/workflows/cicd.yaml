@@ -6,7 +6,7 @@ on:
       - master
 
 jobs:
-  test:
+  build-test:
 
     runs-on: ubuntu-latest
 
@@ -26,3 +26,12 @@ jobs:
         npm test
       env:
         CI: true
+
+  deploy:
+    name: Google App Engine Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: google-github-actions/deploy-appengine@main
+        with:
+          credentials: ${{ secrets.gcp_credentials }}
